@@ -64,6 +64,16 @@ static void register_batch_proc_example(void)
     ESP_ERROR_CHECK(esp_console_cmd_register(&batch_proc_example_cmd));
 }
 
+static void register_periodic_blink_example(void)
+{
+    const esp_console_cmd_t periodic_blink_example_cmd = {
+        .command = "periodic_blink",
+        .help = "Run the example that demonstrates how to run periodic tasks",
+        .func = &comp_periodic_blink_entry_func
+    };
+    ESP_ERROR_CHECK(esp_console_cmd_register(&periodic_blink_example_cmd));
+}
+
 static void config_console(void)
 {
     esp_console_repl_t *repl = NULL;
@@ -84,6 +94,7 @@ static void config_console(void)
     register_lock();
     register_task_notification();
     register_batch_proc_example();
+    register_periodic_blink_example();
 
     ESP_ERROR_CHECK(esp_console_start_repl(repl));
     printf("\n"
