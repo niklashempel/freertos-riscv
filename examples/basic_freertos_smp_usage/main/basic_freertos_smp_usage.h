@@ -8,11 +8,11 @@
 /*------------------------------------------------------------*/
 /* Macros */
 #define PROMPT_STR CONFIG_IDF_TARGET
-#define TASK_PRIO_3         3
-#define TASK_PRIO_2         2
-#define COMP_LOOP_PERIOD    5000
-#define SEM_CREATE_ERR_STR                "semaphore creation failed"
-#define QUEUE_CREATE_ERR_STR              "queue creation failed"
+#define TASK_PRIO_3 3
+#define TASK_PRIO_2 2
+#define COMP_LOOP_PERIOD 5000
+#define SEM_CREATE_ERR_STR "semaphore creation failed"
+#define QUEUE_CREATE_ERR_STR "queue creation failed"
 
 int comp_creating_task_entry_func(int argc, char **argv);
 int comp_queue_entry_func(int argc, char **argv);
