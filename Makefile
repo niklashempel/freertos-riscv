@@ -1,6 +1,6 @@
 # Makefile to build all ESP-IDF projects
 
-EXAMPLES = hello_world blink basic_freertos_smp_usage
+EXAMPLES = hello_world blink basic_freertos_smp_usage assembly
 TARGET = esp32c6
 IDF_PATH ?= $(HOME)/esp/esp-idf
 
