@@ -16,12 +16,17 @@ uint32_t add(uint32_t a, uint32_t b) {
 }
 
 uint32_t atomic_add(uint32_t *ptr, uint32_t value) {
-  uint32_t old_value;
-  __asm__ volatile("amoadd.w %0, %2, (%1)\n"
-                   : "=r"(old_value)
+  uint32_t result;
+  // atomic fetch-add: returns old *ptr and adds value
+  // AMOADD.W atomically loads a data value from the address in 'ptr', places
+  // the value into register 'result', then adds the loaded value and the
+  // original value in 'value', then stores the result back to the address in
+  // 'result'.
+  __asm__ volatile("amoadd.w %0, %2, (%1)\n" // atomically add word
+                   : "=r"(result)
                    : "r"(ptr), "r"(value)
                    : "memory");
-  return old_value;
+  return result;
 }
 
 int app_main(void) {
