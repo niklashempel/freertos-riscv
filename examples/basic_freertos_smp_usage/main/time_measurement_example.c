@@ -1,3 +1,4 @@
+#include "basic_freertos_smp_usage.h"
 #include "esp_clk_tree.h"
 #include "esp_cpu.h"
 #include "freertos/FreeRTOS.h"
@@ -28,10 +29,7 @@ int comp_time_measurement_entry_func(int argc, char **argv) {
   printf("[%s] CPU freq: %" PRIu32 " Hz\n", TAG_TM, cpu_hz);
 
   esp_cpu_cycle_count_t start = esp_cpu_get_cycle_count();
-  TickType_t xTimeOnEntering = xTaskGetTickCount();
-  while (xTaskGetTickCount() - xTimeOnEntering < pdMS_TO_TICKS(2000)) {
-    // Do nothing
-  }
+  spin_idle(2000);
   esp_cpu_cycle_count_t end = esp_cpu_get_cycle_count();
 
   uint32_t cycles_delta = (uint32_t)(end - start);

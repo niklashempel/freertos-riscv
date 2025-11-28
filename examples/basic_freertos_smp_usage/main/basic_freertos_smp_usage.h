@@ -21,3 +21,5 @@ int comp_task_notification_entry_func(int argc, char **argv);
 int comp_batch_proc_example_entry_func(int argc, char **argv);
 int comp_periodic_blink_entry_func(int argc, char **argv);
 int comp_time_measurement_entry_func(int argc, char **argv);
+int comp_priority_inheritance_entry_func(int argc, char **argv);
+void spin_idle(int ms);
