@@ -55,7 +55,7 @@ static void medium_priority_task(void *pvParameters) {
   ESP_LOGI(TAG, "[tick=%u] Medium: doing work (P2, no mutex needed)...",
            (unsigned)xTaskGetTickCount());
 
-  vTaskDelay(pdMS_TO_TICKS(3000));
+  spin_idle(3000);
 
   ESP_LOGI(TAG, "[tick=%u] Medium: work done, finished",
            (unsigned)xTaskGetTickCount());
@@ -80,7 +80,7 @@ static void high_priority_task(void *pvParameters) {
 
   ESP_LOGI(TAG, "[tick=%u] High: doing critical work with mutex...",
            (unsigned)xTaskGetTickCount());
-  vTaskDelay(pdMS_TO_TICKS(100));
+  spin_idle(100);
 
   ESP_LOGI(TAG, "[tick=%u] High: work done, releasing mutex",
            (unsigned)xTaskGetTickCount());
