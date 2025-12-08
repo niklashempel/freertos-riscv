@@ -88,6 +88,14 @@ static void register_priority_inheritance_example(void) {
   ESP_ERROR_CHECK(esp_console_cmd_register(&priority_inheritance_example_cmd));
 }
 
+static void register_priority_inversion_example(void) {
+  const esp_console_cmd_t priority_inversion_example_cmd = {
+      .command = "priority_inversion",
+      .help = "Run the example that demonstrates priority inversion mechanism",
+      .func = &comp_priority_inversion_entry_func};
+  ESP_ERROR_CHECK(esp_console_cmd_register(&priority_inversion_example_cmd));
+}
+
 static void config_console(void) {
   esp_console_repl_t *repl = NULL;
   esp_console_repl_config_t repl_config = ESP_CONSOLE_REPL_CONFIG_DEFAULT();
@@ -111,6 +119,7 @@ static void config_console(void) {
   register_periodic_blink_example();
   register_time_measurement_example();
   register_priority_inheritance_example();
+  register_priority_inversion_example();
 
   ESP_ERROR_CHECK(esp_console_start_repl(repl));
   printf("\n"

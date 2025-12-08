@@ -6,7 +6,8 @@ set(srcs "basic_freertos_smp_usage.c"
          "batch_processing_example.c"
          "periodic_blink_example.c"
          "time_measurement_example.c"
-         "priority_inheritance_example.c")
+         "priority_inheritance_example.c"
+         "priority_inversion_example.c")
 idf_component_register(SRCS ${srcs}
                     INCLUDE_DIRS "."
                     PRIV_REQUIRES console esp_timer)
