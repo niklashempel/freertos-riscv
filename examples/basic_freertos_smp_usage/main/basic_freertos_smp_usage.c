@@ -96,6 +96,14 @@ static void register_priority_inversion_example(void) {
   ESP_ERROR_CHECK(esp_console_cmd_register(&priority_inversion_example_cmd));
 }
 
+static void register_deadline_miss_example(void) {
+  const esp_console_cmd_t deadline_miss_example_cmd = {
+      .command = "deadline_miss",
+      .help = "Run the example that demonstrates a missed deadline",
+      .func = &comp_deadline_miss_entry_func};
+  ESP_ERROR_CHECK(esp_console_cmd_register(&deadline_miss_example_cmd));
+}
+
 static void config_console(void) {
   esp_console_repl_t *repl = NULL;
   esp_console_repl_config_t repl_config = ESP_CONSOLE_REPL_CONFIG_DEFAULT();
@@ -120,6 +128,7 @@ static void config_console(void) {
   register_time_measurement_example();
   register_priority_inheritance_example();
   register_priority_inversion_example();
+  register_deadline_miss_example();
 
   ESP_ERROR_CHECK(esp_console_start_repl(repl));
   printf("\n"
