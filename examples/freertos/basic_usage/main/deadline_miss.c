@@ -1,4 +1,4 @@
-#include "basic_freertos_smp_usage.h"
+#include "basic_usage.h"
 #include "esp_log.h"
 #include "freertos/idf_additions.h"
 

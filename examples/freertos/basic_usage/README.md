@@ -8,14 +8,15 @@
 FreeRTOS offers a rich array of communication objects and task notification mechanisms that facilitate interaction and synchronization between concurrent tasks. This example demonstrates the applications of some useful APIs, including task creation, queue, mutex / spinlock, and task notification, within the context of a Symmetric Multiprocessor (SMP) architecture.
 
 ## Contents of this example
+
 Below is short explanation of remaining files in the project folder.
 
 ```
 ├── CMakeLists.txt
 ├── main
 │   ├── CMakeLists.txt
-│   ├── basic_freertos_smp_usage.h
-│   ├── basic_freertos_smp_usage.c
+│   ├── basic_usage.h
+│   ├── basic_usage.c
 │   ├── create_task_example.c
 │   ├── queue_example.c
 │   ├── lock_example.c
@@ -25,22 +26,23 @@ Below is short explanation of remaining files in the project folder.
 └── README.md                  This is the file you are currently reading
 ```
 
-This example includes 5 parts: 
+This example includes 5 parts:
 
 ### Creating task example
 
-The first part is shows how to create tasks that can be pinned (affinity with a specific core) or unpinned (no particular affinity with any core) on ESP32 series CPU cores thanks to the API function `xTaskCreatePinnedToCore()`. 
+The first part is shows how to create tasks that can be pinned (affinity with a specific core) or unpinned (no particular affinity with any core) on ESP32 series CPU cores thanks to the API function `xTaskCreatePinnedToCore()`.
 
 In this case, there are 4 tasks created in total:
-* `pinned_task0_core0` task is created and pinned on core 0
-* `pinned_task1_core0` task is also created and pinned on core 0
-* `pinned_task2_core1` task is created and pinned on core 1
-* `unpinned_task` task is the last one, it is unpinned, which means it can be scheduled to run on any core.
- 
+
+- `pinned_task0_core0` task is created and pinned on core 0
+- `pinned_task1_core0` task is also created and pinned on core 0
+- `pinned_task2_core1` task is created and pinned on core 1
+- `unpinned_task` task is the last one, it is unpinned, which means it can be scheduled to run on any core.
+
 A task can be unpinned by setting the `xCoreID` field to `tskNO_AFFINITY` when calling `xTaskCreatePinnedToCore()`.
 
-
 #### Example Output
+
 In the task function, the API `esp_cpu_get_core_id()` is called to query on which core this task is currently running. The example should have the following console output that, "pinned_task0_core0" and "pinned_task1_core0" are running on core#0, while "pinned_task2_core1" is running on core#1, and "unpinned_task" can be running on both core#0 and core#1:
 
 ```
@@ -69,9 +71,11 @@ I (2803) create task example: task#3 is running on core#1
 ```
 
 ### Queue communication example
+
 The second part is about how to use FreeRTOS built-in queue to transmit data between tasks. In this example, one task is sending a number every 250 millisecond to a msg queue by calling API `xQueueGenericSend()`, and another task receives data from this queue by calling API `xQueueReceive()`
 
 #### Example Output
+
 The example should have the following console output:
 
 ```
@@ -101,14 +105,17 @@ I (1740313) queue example: received data = 10
 ```
 
 ### Locks example
-In the third part, a simple comparison of performance between mutexes, spinlocks and atomic operations is presented, along with an instance of how to use mutexes as a mechanism for protecting shared resources. 
+
+In the third part, a simple comparison of performance between mutexes, spinlocks and atomic operations is presented, along with an instance of how to use mutexes as a mechanism for protecting shared resources.
 
 To highlight the differences in performance between mutexes, spinlocks and atomic operations, this example implements two tasks that share a resource, which will be protected by mutex and spinlock and declared as an atomic type variable, respectively. Note: if this example runs on single core, only 1 task of each type will be created.
 
-The result illustrates that the spinlocks are faster because they don't trigger any context switch, but they are CPU-intensive. Using atomic operation is faster than using spinlock, because it doesn't involve entering and exiting critical sections. 
+The result illustrates that the spinlocks are faster because they don't trigger any context switch, but they are CPU-intensive. Using atomic operation is faster than using spinlock, because it doesn't involve entering and exiting critical sections.
 
 #### Example Output
+
 The example should have the following console output:
+
 ```
 I (5025) lock example: mutex task took 1562156 us on core1
 I (5025) lock example: mutex task took 1567546 us on core0
@@ -134,10 +141,13 @@ I (13105) lock example: task1 set value = 6
 ```
 
 ### Task notification example
+
 Two tasks communicate via FreeRTOS task notification systems: one is sending notifications while the other receives them.
 
 #### Example Output
+
 The example should have the following console output:
+
 ```
 I (392163) task notify example: send_task sends a notification
 I (392163) task notify example: 1 tasks pending
@@ -158,12 +168,15 @@ I (396163) task notify example: rcv_task is processing this task notification
 ```
 
 ### Batch processing example
+
 In the last part, a practical demonstration is provided wherein queues, mutexes, and task notifications are integrated to implement a realistic workflow, thereby exemplifying their practical utility in real-world scenarios.
 
 A task named **rcv_data_task** mimics receiving the irregularly arrived data. Every time a data item is received, it is pushed into a queue, and the received item number is increased by 1; once the task collects 5 data items, it sends a task notification to the **proc_data_task** to process this batch of data from the queue. When the latter task finishes processing, it will decrease the received item number by 5. Because both these 2 tasks can modify this global number, the modification action is protected by a mutex.
 
 #### Example Output
+
 The example should have the following console output:
+
 ```
 I (2675163) batch processing example: enqueue data = 43
 I (2675563) batch processing example: enqueue data = 29
@@ -194,11 +207,11 @@ I (2679233) batch processing example: decrease s_rcv_item_num to 0
 
 This example utilizes an interactive console component so that you can select the part you would like to run through the terminal. You can type 'help' to get the list of commands; use UP/DOWN arrows to navigate through command history; press TAB when typing command name to auto-complete. For more information on the interactive terminal console component, please refer to [console](../../console/README.md). The supported commands include:
 
-* **help**: get the list of commands
-* **create_task**: run the creating task example
-* **queue**: run the queue example
-* **lock**: run the locks example
-* **task_notification**: run the task notification example
-* **batch_processing**: run the batch processing example
+- **help**: get the list of commands
+- **create_task**: run the creating task example
+- **queue**: run the queue example
+- **lock**: run the locks example
+- **task_notification**: run the task notification example
+- **batch_processing**: run the batch processing example
 
 Once a component starts running, it will be stopped in about 5 seconds. If you would like to extend the running time, please modify the value of macro **COMP_LOOP_PERIOD** in the header file inc.h.

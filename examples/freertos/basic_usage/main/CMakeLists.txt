@@ -1,4 +1,4 @@
-set(srcs "basic_freertos_smp_usage.c"
+set(srcs "basic_usage.c"
          "create_task_example.c"
          "queue_example.c"
          "lock_example.c"

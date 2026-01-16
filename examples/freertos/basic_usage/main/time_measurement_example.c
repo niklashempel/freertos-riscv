@@ -1,4 +1,4 @@
-#include "basic_freertos_smp_usage.h"
+#include "basic_usage.h"
 #include "esp_clk_tree.h"
 #include "esp_cpu.h"
 #include "freertos/FreeRTOS.h"

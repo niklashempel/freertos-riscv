@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  */
-#include "basic_freertos_smp_usage.h"
+#include "basic_usage.h"
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 
